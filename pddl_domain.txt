@@ -1,0 +1,65 @@
+(define (domain automation_production)
+	(:predicates (empty ?location)(is_busy ?location)(at ?location)(start ?location)(neighbor ?location ?location) )
+	(:action move_onload1213
+	:parament(obj ?obj,location ?source,location ?dst)
+	:precondition(and(n1n2 ?source ?obj)(at ?source)(empty ?dst))
+	:effect(and (n1n2_pre ?dst ?obj)(at ?dst)(empty ?source)(is_busy ?dst)
+	       (not (n1n2 ?source ?obj))(not (at ?source))(not (empty ?dst))))
+	(:action move_onload23
+	:parament(obj ?obj,location ?source,location ?dst)
+	:precondition(and(y1n2 ?source ?obj)(at ?source)(empty ?dst))
+	:effect(and (y1n2_pre ?dst ?obj)(at ?dst)(empty ?source)(is_busy ?dst)
+	       (not (y1n2 ?source ?obj))(not (at ?source))(not (empty ?dst))))
+	(:action move_onload32
+	:parament(obj ?obj,location ?source,location ?dst)
+	:precondition(and(y2n1 ?source ?obj)(at ?source)(empty ?dst))
+	:effect(and (y2n1_pre ?dst ?obj)(at ?dst)(empty ?source)(is_busy ?dst)
+	       (not (y1n2 ?source ?obj))(not (at ?source))(not (empty ?dst))(not (y2n1 ?source ?obj))))
+
+
+	(:action move_onload234
+	:parament(obj ?obj,location ?source,location ?dst)
+	:precondition(and(y1y2 ?source ?obj)(at ?source)(empty ?dst)(go loc4))
+	:effect(and (y1y2_pre ?dst ?obj)(at ?dst)(empty ?source)
+	       (not (y1y2 ?source ?obj))(not (at ?source))(not (empty ?dst))))
+
+
+
+	(:action feed
+	:parament(obj ?obj,location ?source)
+	:precondition(and(empty ?source)(start ?source))
+	:effect(and (n1n2 ?source ?obj)
+	       (not (empty ?source))(not (start ?source))))
+	(:action preocessing1
+	:parament(obj ?obj,location ?source)
+	:precondition(and(n1n2_pre ?source ?obj)(is_busy ?source))
+	:effect(and (y1n2 ?source ?obj)
+	       (not (empty ?source))(not (start ?source))(not (is_busy ?source))(not (n1n2_pre ?source ?obj))))	
+	(:action preocessing2
+	:parament(obj ?obj,location ?source)
+	:precondition(and(y2n1_pre ?source ?obj)(is_busy ?source))
+	:effect(and (y1y2 ?source ?obj)
+	       (not (empty ?source))(not (start ?source))(not (is_busy ?source))(not (y2n1_pre ?source ?obj)))))
+	(:action assembly1
+	:parament(obj ?obj,location ?source)
+	:precondition(and(n1n2_pre ?source ?obj)(is_busy ?source))
+	:effect(and (y2n1 ?source ?obj)
+	       (not (empty ?source))(not (start ?source))(not (is_busy ?source))(not (n1n2_pre ?source ?obj))))	
+	(:action assembly2
+	:parament(obj ?obj,location ?source)
+	:precondition(and(y1n2_pre ?source ?obj)(is_busy ?source))
+	:effect(and (y1y2 ?source ?obj)
+	       (not (empty ?source))(not (start ?source))(not (is_busy ?source))(not (y1n2_pre ?source ?obj))))	
+
+	(:action sorting
+	:parament(obj ?obj,location ?source)
+	:precondition(and(y1y2_pre ?source ?obj))
+	:effect(and (end loc4)(empty ?source)(not (y1y2_pre ?source ?obj))))
+
+
+
+	(:action move_unload
+	:parament(location ?source,location ?dst)
+	:precondition(and(at ?source)(neighbor ?source ?dst))
+	:effect(and (at ?dst)(not (at ?source))))
+)

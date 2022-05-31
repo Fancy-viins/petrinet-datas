@@ -1,0 +1,8 @@
+(define (problem automarion_production))
+(:domain automarion_production)
+(:object obj loc1 loc2 loc3 loc4)
+(:init (obj obj)(location loc1)(location loc2)(location loc3)(location loc4)(location1 loc1)(location2 loc2)(location3 loc3)(location4 loc4)	
+        (start loc1)(start loc1)(not_busy loc1)(not_busy loc2)(not_busy loc3)(not_busy loc4)(robotAt loc1)
+        (neighbor loc1 loc2)(neighbor loc2 loc1)(neighbor loc3 loc2)(neighbor loc2 loc3)(neighbor loc3 loc4)(neighbor loc4 loc3)
+(:goal (and (end loc4)(not_busy loc1)(not_busy loc2)(not_busy loc3)(not_busy loc4)(robotAt loc1)))
+)

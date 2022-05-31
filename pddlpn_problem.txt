@@ -1,0 +1,6 @@
+(define (problem automarion_production))
+(:domain automation_production)
+(:object )
+(:init (and(buffer_in.num = 2)(station.idle = ture))
+(:goal (buffer_out = 2)
+)

@@ -1,0 +1,34 @@
+(define (domain automation_production)
+	(:predicates  
+		（(busy ?location)(location1 ?location1)(location2 ?location2)）
+	(:action move_onload
+	:parament(location ?source,location ?dst)
+	:precondition(and(at start (busy ?source))(at start (not (busy ?dst)))(at start(location1 ?source))(at start(location2 ?dst)))
+	:effect(and (at end (busy ?dst))(at start (not (busy ?source)))(at start(location1 ?source))(at start(location2 ?dst))
+		)
+	)
+
+
+
+(:singletonTypes Part
+	(attribute: (bool undressed)(int atLocation{4}))
+)
+(:action move
+:parament(loc1 - location,loc2- location)
+:precondition(and(at start(robotAt  loc1))
+			 (at start(near  loc1  loc2)))
+:effect(and (at end(robotAt loc2))
+			(at start(not (robotAt  loc1)))
+			(at start(near loc1 loc2))
+		)
+)
+
+(:action move
+:parament(?source -location ,?dst -location )
+:precondition(and(at start(robotAt ?source))
+			 (at start(near ?source ?dst)))
+:effect(and (at end(robotAt ?dst))
+			(at start(not (robotAt ?source)))
+	   		(at start(near ?source ?dst))
+	   )
+)

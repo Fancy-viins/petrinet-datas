@@ -1,0 +1,7 @@
+(define (problem automarion_production))
+(:domain automarion_production)
+(:object loc1 loc2)
+(:init (location loc1)(location loc2)(location1 loc1)(location2 loc2)(busy loc1)
+	
+(:goal (and (busy loc2)))
+)
